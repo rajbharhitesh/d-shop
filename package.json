@@ -8,6 +8,7 @@
     "start": "node backend/server.js",
     "server": "nodemon backend/server.js",
     "client": "npm run dev --prefix frontend",
+    "seeder": "node backend/seeder/seeder.js",
     "both": "concurrently \"npm run server\" \"npm run client\""
   },
   "keywords": [],
