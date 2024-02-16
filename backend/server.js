@@ -5,7 +5,11 @@ import connectDB from './config/db.js';
 
 dotenv.config();
 
+// connect DB
+connectDB();
+
 // import all routes
+import productRoute from './routes/productRoute.js';
 
 const PORT = process.env.PORT || 5000;
 const app = express();
@@ -13,8 +17,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// connect DB
-connectDB();
+app.use('/api/v1', productRoute);
 
 app.listen(PORT, () => {
   console.log(
