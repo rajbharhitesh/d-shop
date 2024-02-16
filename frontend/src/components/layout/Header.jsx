@@ -1,11 +1,13 @@
+import { Link } from 'react-router-dom';
+
 const Header = () => {
   return (
     <nav className="navbar row">
       <div className="col-12 col-md-3 ps-5">
         <div className="navbar-brand">
-          <a href="/">
+          <Link to="/">
             <span className="brand-name">D-Shop</span>
-          </a>
+          </Link>
         </div>
       </div>
       <div className="col-12 col-md-6 mt-2 mt-md-0">
@@ -26,14 +28,14 @@ const Header = () => {
         </form>
       </div>
       <div className="col-12 col-md-3 mt-4 mt-md-0 text-center">
-        <a href="/cart" style={{ textDecoration: 'none' }}>
+        <Link to="/cart" style={{ textDecoration: 'none' }}>
           <span id="cart" className="ms-3">
             Cart
           </span>
           <span className="ms-1" id="cart_count">
             0
           </span>
-        </a>
+        </Link>
 
         <div className="ms-4 dropdown">
           <button
@@ -56,27 +58,27 @@ const Header = () => {
             className="dropdown-menu w-100"
             aria-labelledby="dropDownMenuButton"
           >
-            <a className="dropdown-item" href="/admin/dashboard">
+            <Link className="dropdown-item" to="/admin/dashboard">
               Dashboard
-            </a>
+            </Link>
 
-            <a className="dropdown-item" href="/me/orders">
+            <Link className="dropdown-item" to="/me/orders">
               Orders
-            </a>
+            </Link>
 
-            <a className="dropdown-item" href="/me/profile">
+            <Link className="dropdown-item" to="/me/profile">
               Profile
-            </a>
+            </Link>
 
-            <a className="dropdown-item text-danger" href="/">
+            <Link className="dropdown-item text-danger" to="/">
               Logout
-            </a>
+            </Link>
           </div>
         </div>
 
-        <a href="/login" className="btn ms-4" id="login_btn">
+        <Link to="/login" className="btn ms-4" id="login_btn">
           Login
-        </a>
+        </Link>
       </div>
     </nav>
   );
