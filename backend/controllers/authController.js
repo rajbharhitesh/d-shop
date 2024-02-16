@@ -27,4 +27,34 @@ const registerUser = asyncHandler(async (req, res, next) => {
   sendToken(user, 201, res);
 });
 
-export { registerUser };
+/**-----------------------------------------------
+ * @desc     Login user
+ * @route   /api/v1/login
+ * @method  POST
+ * @access  Public
+ ------------------------------------------------*/
+const loginUser = asyncHandler(async (req, res, next) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    return next(new ErrorHandler('Please enter email & password', 400));
+  }
+
+  // Find user in the database
+  const user = await User.findOne({ email }).select('+password');
+
+  if (!user) {
+    return next(new ErrorHandler('Invalid email or password', 401));
+  }
+
+  // Check if password is correct
+  const isPasswordMatched = await user.comparePassword(password);
+
+  if (!isPasswordMatched) {
+    return next(new ErrorHandler('Invalid email or password', 401));
+  }
+
+  sendToken(user, 200, res);
+});
+
+export { registerUser, loginUser };
