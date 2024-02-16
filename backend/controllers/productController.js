@@ -12,4 +12,20 @@ const getProducts = async (req, res) => {
   res.status(200).json({ products });
 };
 
-export { getProducts };
+/**-----------------------------------------------
+ * @desc    Fetch Single Product
+ * @route   /api/v1/products/:id
+ * @method  GET
+ * @access  Public
+ ------------------------------------------------*/
+const getProductDetails = async (req, res) => {
+  const product = await Product.findById(req.params.id);
+
+  if (!product) {
+    return res.status(404).json({ error: 'Product not Found..!' });
+  }
+
+  res.status(200).json({ product });
+};
+
+export { getProducts, getProductDetails };
