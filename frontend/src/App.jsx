@@ -4,6 +4,7 @@ import './App.css';
 import Footer from './components/layout/Footer';
 import Header from './components/layout/Header';
 import HomePage from './pages/HomePage';
+import ProductDetailsPage from './pages/product/ProductDetailsPage';
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
         <div className="container">
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/product/:id" element={<ProductDetailsPage />} />
           </Routes>
         </div>
 
