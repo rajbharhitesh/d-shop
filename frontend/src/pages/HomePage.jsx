@@ -1,8 +1,11 @@
+import Loader from '../components/layout/Loader';
 import ProductItem from '../components/product/ProductItem';
 import { useGetProductsQuery } from '../redux/api/productApi';
 
 const HomePage = () => {
   const { data, isLoading } = useGetProductsQuery();
+
+  if (isLoading) return <Loader />;
 
   return (
     <div className="row">
