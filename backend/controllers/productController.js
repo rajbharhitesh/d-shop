@@ -1,4 +1,4 @@
-import Product from '../models/productModel';
+import Product from '../models/productModel.js';
 
 /**-----------------------------------------------
  * @desc    Fetch All Products
@@ -6,10 +6,10 @@ import Product from '../models/productModel';
  * @method  GET
  * @access  Public
  ------------------------------------------------*/
-const getProducts = asyncHandler(async (req, res) => {
+const getProducts = async (req, res) => {
   const products = await Product.find();
 
   res.status(200).json({ products });
-});
+};
 
 export { getProducts };
