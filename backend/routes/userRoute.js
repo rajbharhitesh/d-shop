@@ -4,6 +4,7 @@ import {
   getUserProfile,
   updatePassword,
   updateProfile,
+  uploadAvatar,
 } from '../controllers/userController.js';
 
 const router = express.Router();
@@ -13,6 +14,9 @@ router.route('/me').get(isAuthenticatedUser, getUserProfile);
 
 // api/v1/users/me/update
 router.route('/me/update').put(isAuthenticatedUser, updateProfile);
+
+// api/v1/users/me/upload_avatar
+router.route('/me/upload_avatar').put(isAuthenticatedUser, uploadAvatar);
 
 // api/v1/users/password/update
 router.route('/password/update').put(isAuthenticatedUser, updatePassword);

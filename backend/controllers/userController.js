@@ -1,5 +1,6 @@
 import asyncHandler from '../middlewares/asyncHandler.js';
 import User from '../models/userModel.js';
+import { delete_file, upload_file } from '../utils/cloudinary.js';
 import ErrorHandler from '../utils/errorHandler.js';
 
 /**-----------------------------------------------
@@ -55,4 +56,25 @@ const updatePassword = asyncHandler(async (req, res, next) => {
   res.status(200).json({ success: true });
 });
 
-export { getUserProfile, updateProfile, updatePassword };
+/**-----------------------------------------------
+ * @desc     Upload avatar
+ * @route   /api/v1/users/me/upload_avatar
+ * @method  PUT
+ * @access  Private
+ ------------------------------------------------*/
+const uploadAvatar = asyncHandler(async (req, res, next) => {
+  const avatarResponse = await upload_file(req.body.avatar, 'shopit/avatars');
+
+  // Remove previous avatar
+  if (req?.user?.avatar?.url) {
+    await delete_file(req?.user?.avatar?.public_id);
+  }
+
+  const user = await User.findByIdAndUpdate(req?.user?._id, {
+    avatar: avatarResponse,
+  });
+
+  res.status(200).json({ user });
+});
+
+export { getUserProfile, updateProfile, updatePassword, uploadAvatar };
