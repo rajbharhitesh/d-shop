@@ -37,4 +37,4 @@ export const userApi = createApi({
   }),
 });
 
-export const { useGetMeQuery } = userApi;
+export const { useGetMeQuery, useUpdateProfileMutation } = userApi;

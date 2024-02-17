@@ -8,6 +8,7 @@ import ProductDetailsPage from './pages/product/ProductDetailsPage';
 import LoginPage from './pages/auth/LoginPage';
 import RegisterPage from './pages/auth/RegisterPage';
 import ProfilePage from './pages/user/ProfilePage';
+import UpdateProfilePage from './pages/user/UpdateProfilePage';
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/me/profile" element={<ProfilePage />} />
+            <Route path="/me/update_profile" element={<UpdateProfilePage />} />
             <Route path="/product/:id" element={<ProductDetailsPage />} />
           </Routes>
         </div>
