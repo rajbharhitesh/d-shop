@@ -20,6 +20,7 @@ connectDB();
 // import all routes
 import productRoute from './routes/productRoute.js';
 import authRoute from './routes/authRoute.js';
+import userRoute from './routes/userRoute.js';
 
 const PORT = process.env.PORT || 5000;
 const app = express();
@@ -30,6 +31,7 @@ app.use(cookieParser());
 
 app.use('/api/v1', productRoute);
 app.use('/api/v1', authRoute);
+app.use('/api/v1/user', userRoute);
 
 // Using error middleware
 app.use(errorMiddleware);
