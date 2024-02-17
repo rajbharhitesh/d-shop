@@ -1,11 +1,18 @@
 import { Link } from 'react-router-dom';
 import { useGetMeQuery } from '../../redux/api/userApi';
 import { useSelector } from 'react-redux';
+import { useLazyLogoutQuery } from '../../redux/api/authApi';
 
 const Header = () => {
   const { isLoading } = useGetMeQuery();
+  const [logout] = useLazyLogoutQuery();
 
   const { user } = useSelector((state) => state.auth);
+
+  const logoutHandler = () => {
+    logout();
+    navigate(0);
+  };
 
   return (
     <nav className="navbar row">
@@ -83,7 +90,11 @@ const Header = () => {
                 Profile
               </Link>
 
-              <Link className="dropdown-item text-danger" to="/">
+              <Link
+                className="dropdown-item text-danger"
+                to="/"
+                onClick={logoutHandler}
+              >
                 Logout
               </Link>
             </div>
