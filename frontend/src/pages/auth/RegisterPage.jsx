@@ -1,13 +1,36 @@
+import { useEffect, useState } from 'react';
+import { useRegisterMutation } from '../../redux/api/authApi';
+import { toast } from 'sonner';
+
 const RegisterPage = () => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const [register, { isLoading, error, isSuccess }] = useRegisterMutation();
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error?.data?.message);
+    }
+
+    if (isSuccess) {
+      toast.success('User Registered  Successfully..!!');
+    }
+  }, [error, isSuccess]);
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+
+    const registerData = { name, email, password };
+
+    register(registerData);
+  };
+
   return (
     <div className="row wrapper">
       <div className="col-10 col-lg-5">
-        <form
-          className="shadow rounded bg-body"
-          action="your_submit_url_here"
-          method="post"
-          enctype="multipart/form-data"
-        >
+        <form className="shadow rounded bg-body" onSubmit={submitHandler}>
           <h2 className="mb-4 text-center">Register</h2>
 
           <div className="mb-3">
@@ -19,7 +42,9 @@ const RegisterPage = () => {
               id="name_field"
               className="form-control"
               name="name"
-              value=""
+              required
+              value={name}
+              onChange={(e) => setName(e.target.value)}
             />
           </div>
 
@@ -32,7 +57,9 @@ const RegisterPage = () => {
               id="email_field"
               className="form-control"
               name="email"
-              value=""
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
 
@@ -45,12 +72,19 @@ const RegisterPage = () => {
               id="password_field"
               className="form-control"
               name="password"
-              value=""
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
 
-          <button id="register_button" type="submit" className="btn w-100 py-2">
-            REGISTER
+          <button
+            id="register_button"
+            type="submit"
+            className="btn w-100 py-2"
+            disabled={isLoading}
+          >
+            {isLoading ? 'Creating...' : 'REGISTER'}
           </button>
         </form>
       </div>
