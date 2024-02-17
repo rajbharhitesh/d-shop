@@ -35,6 +35,15 @@ export const userApi = createApi({
       invalidatesTags: ['User'],
     }),
 
+    uploadAvatar: builder.mutation({
+      query: (body) => ({
+        url: '/me/upload_avatar',
+        method: 'PUT',
+        body,
+      }),
+      invalidatesTags: ['User'],
+    }),
+
     updatePassword: builder.mutation({
       query: (body) => ({
         url: '/password/update',
@@ -49,4 +58,5 @@ export const {
   useGetMeQuery,
   useUpdateProfileMutation,
   useUpdatePasswordMutation,
+  useUploadAvatarMutation,
 } = userApi;

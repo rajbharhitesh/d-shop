@@ -11,6 +11,7 @@ import ProfilePage from './pages/user/ProfilePage';
 import UpdateProfilePage from './pages/user/UpdateProfilePage';
 import ProtectedRoute from './components/routes/ProtectedRoute';
 import UpdatePasswordPage from './pages/user/UpdatePasswordPage';
+import UploadAvatarPage from './pages/user/UploadAvatarPage';
 
 const App = () => {
   return (
@@ -48,6 +49,15 @@ const App = () => {
               element={
                 <ProtectedRoute>
                   <UpdatePasswordPage />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/me/upload_avatar"
+              element={
+                <ProtectedRoute>
+                  <UploadAvatarPage />
                 </ProtectedRoute>
               }
             />
