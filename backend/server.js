@@ -31,7 +31,7 @@ app.use(cookieParser());
 
 app.use('/api/v1', productRoute);
 app.use('/api/v1', authRoute);
-app.use('/api/v1/user', userRoute);
+app.use('/api/v1/users', userRoute);
 
 // Using error middleware
 app.use(errorMiddleware);

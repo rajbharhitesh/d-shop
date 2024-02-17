@@ -3,7 +3,7 @@ import User from '../models/userModel.js';
 
 /**-----------------------------------------------
  * @desc     Get current logged in user profile
- * @route   /api/v1/user/me
+ * @route   /api/v1/users/me
  * @method  GET
  * @access  Private
  ------------------------------------------------*/
