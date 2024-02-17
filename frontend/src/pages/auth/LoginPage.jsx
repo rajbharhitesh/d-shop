@@ -1,15 +1,24 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useLoginMutation } from '../../redux/api/authApi';
 import { toast } from 'sonner';
+import { useSelector } from 'react-redux';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const navigate = useNavigate();
+
   const [login, { isLoading, error, isSuccess }] = useLoginMutation();
 
+  const { isAuthenticated } = useSelector((state) => state.auth);
+
   useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/');
+    }
+
     if (error) {
       toast.error(error?.data?.message);
     }
@@ -17,7 +26,7 @@ const LoginPage = () => {
     if (isSuccess) {
       toast.success('User Logged in Successfully..!!');
     }
-  }, [error, isSuccess]);
+  }, [error, isSuccess, navigate, isAuthenticated]);
 
   const submitHandler = (e) => {
     e.preventDefault();
