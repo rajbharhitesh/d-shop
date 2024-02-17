@@ -11,7 +11,7 @@ const RegisterPage = () => {
 
   const navigate = useNavigate();
 
-  const [register, { isLoading, error, isSuccess }] = useRegisterMutation();
+  const [register, { isLoading, error }] = useRegisterMutation();
 
   const { isAuthenticated } = useSelector((state) => state.auth);
 
@@ -23,11 +23,7 @@ const RegisterPage = () => {
     if (error) {
       toast.error(error?.data?.message);
     }
-
-    if (isSuccess) {
-      toast.success('User Registered  Successfully..!!');
-    }
-  }, [error, isSuccess, navigate, isAuthenticated]);
+  }, [error, navigate, isAuthenticated]);
 
   const submitHandler = (e) => {
     e.preventDefault();

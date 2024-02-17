@@ -10,7 +10,7 @@ const LoginPage = () => {
 
   const navigate = useNavigate();
 
-  const [login, { isLoading, error, isSuccess }] = useLoginMutation();
+  const [login, { isLoading, error }] = useLoginMutation();
 
   const { isAuthenticated } = useSelector((state) => state.auth);
 
@@ -22,11 +22,7 @@ const LoginPage = () => {
     if (error) {
       toast.error(error?.data?.message);
     }
-
-    if (isSuccess) {
-      toast.success('User Logged in Successfully..!!');
-    }
-  }, [error, isSuccess, navigate, isAuthenticated]);
+  }, [error, navigate, isAuthenticated]);
 
   const submitHandler = (e) => {
     e.preventDefault();

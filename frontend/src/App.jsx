@@ -9,6 +9,7 @@ import LoginPage from './pages/auth/LoginPage';
 import RegisterPage from './pages/auth/RegisterPage';
 import ProfilePage from './pages/user/ProfilePage';
 import UpdateProfilePage from './pages/user/UpdateProfilePage';
+import ProtectedRoute from './components/routes/ProtectedRoute';
 
 const App = () => {
   return (
@@ -22,8 +23,25 @@ const App = () => {
             <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
-            <Route path="/me/profile" element={<ProfilePage />} />
-            <Route path="/me/update_profile" element={<UpdateProfilePage />} />
+
+            <Route
+              path="/me/profile"
+              element={
+                <ProtectedRoute>
+                  <ProfilePage />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/me/update_profile"
+              element={
+                <ProtectedRoute>
+                  <UpdateProfilePage />
+                </ProtectedRoute>
+              }
+            />
+
             <Route path="/product/:id" element={<ProductDetailsPage />} />
           </Routes>
         </div>
