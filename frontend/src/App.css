@@ -282,13 +282,11 @@ footer {
 }
 
 /* Login & Register */
-
 .wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 5rem;
-
   font-weight: 700;
 }
 
@@ -298,14 +296,14 @@ footer {
 
 .wrapper form .btn,
 .fetch-btn {
-  background-color: #fa9c23;
-  border-color: #fa9c23;
+  background-color: #ff3f6c;
+  border-color: #ff3f6c;
   color: white;
-  margin-top: 1rem;
+  margin-top: 2.5rem;
 }
 
 .fetch-btn:hover {
-  background-color: #fa9c23;
+  background-color: #ff3f6c;
   color: white;
 }
 
