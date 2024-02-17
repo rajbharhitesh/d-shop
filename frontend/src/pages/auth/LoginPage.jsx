@@ -1,17 +1,39 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useLoginMutation } from '../../redux/api/authApi';
+import { toast } from 'sonner';
 
 const LoginPage = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const [login, { isLoading, error, isSuccess }] = useLoginMutation();
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error?.data?.message);
+    }
+
+    if (isSuccess) {
+      toast.success('User Logged in Successfully..!!');
+    }
+  }, [error, isSuccess]);
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+
+    const loginData = { email, password };
+
+    login(loginData);
+  };
+
   return (
     <div className="row wrapper">
       <div className="col-10 col-lg-5">
-        <form
-          className="shadow rounded bg-body"
-          action="your_submit_url_here"
-          method="post"
-        >
+        <form className="shadow rounded bg-body" onSubmit={submitHandler}>
           <h2 className="mb-4 text-center">Login</h2>
           <div className="mb-3">
-            <label for="email_field" className="form-label">
+            <label htmlFor="email_field" className="form-label">
               Email
             </label>
             <input
@@ -19,12 +41,14 @@ const LoginPage = () => {
               id="email_field"
               className="form-control"
               name="email"
-              value=""
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
 
           <div className="mb-3">
-            <label for="password_field" className="form-label">
+            <label htmlFor="password_field" className="form-label">
               Password
             </label>
             <input
@@ -32,7 +56,9 @@ const LoginPage = () => {
               id="password_field"
               className="form-control"
               name="password"
-              value=""
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
 
@@ -40,8 +66,13 @@ const LoginPage = () => {
             Forgot Password?
           </Link>
 
-          <button id="login_button" type="submit" className="btn w-100 py-2">
-            LOGIN
+          <button
+            id="login_button"
+            type="submit"
+            className="btn w-100 py-2"
+            disabled={isLoading}
+          >
+            {isLoading ? 'Authenticating...!' : 'LOGIN'}
           </button>
 
           <div className="my-3">

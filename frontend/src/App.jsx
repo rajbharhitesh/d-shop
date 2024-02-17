@@ -12,7 +12,7 @@ const App = () => {
   return (
     <Router>
       <div className="App">
-        <Toaster position="bottom-center" />
+        <Toaster richColors position="bottom-center" />
         <Header />
 
         <div className="container">
