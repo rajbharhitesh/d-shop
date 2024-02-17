@@ -344,7 +344,6 @@ footer {
 }
 
 /* Header User Profile */
-
 .avatar-nav {
   margin-right: 0.6rem;
   height: 2.2rem;
@@ -352,7 +351,6 @@ footer {
 }
 
 /* Checkout Steps */
-
 .checkout-progress div {
   box-sizing: border-box;
 }
@@ -426,7 +424,6 @@ footer {
 }
 
 /* User Profile */
-
 .avatar-profile {
   height: 16rem;
   width: 16rem;
@@ -443,8 +440,8 @@ footer {
 }
 
 #edit_profile {
-  background-color: #fa9c23;
-  border-color: #fa9c23;
+  background-color: #ff3f6c;
+  border-color: #ff3f6c;
 }
 
 /* Confirm Order */
@@ -568,5 +565,5 @@ footer {
   background-color: #f3f4f6;
   border-color: #f3f4f6;
   border-radius: 0.3rem;
-  color: #fa9c23;
+  color: #ff3f6c;
 }
