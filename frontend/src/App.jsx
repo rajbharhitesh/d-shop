@@ -10,6 +10,7 @@ import RegisterPage from './pages/auth/RegisterPage';
 import ProfilePage from './pages/user/ProfilePage';
 import UpdateProfilePage from './pages/user/UpdateProfilePage';
 import ProtectedRoute from './components/routes/ProtectedRoute';
+import UpdatePasswordPage from './pages/user/UpdatePasswordPage';
 
 const App = () => {
   return (
@@ -38,6 +39,15 @@ const App = () => {
               element={
                 <ProtectedRoute>
                   <UpdateProfilePage />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/me/update_password"
+              element={
+                <ProtectedRoute>
+                  <UpdatePasswordPage />
                 </ProtectedRoute>
               }
             />
