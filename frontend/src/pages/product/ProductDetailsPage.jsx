@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { useGetProductDetailsQuery } from '../../redux/api/productApi';
+import { useDispatch } from 'react-redux';
 import { toast } from 'sonner';
+import { useGetProductDetailsQuery } from '../../redux/api/productApi';
+import { setCartItem } from '../../redux/features/cartSlice';
 import Loader from '../../components/layout/Loader';
 import StarRatings from 'react-star-ratings';
 
@@ -10,6 +12,7 @@ const ProductDetailsPage = () => {
   const [activeImg, setActiveImg] = useState('');
 
   const { id } = useParams();
+  const dispatch = useDispatch();
 
   const { data, isLoading, error, isError } = useGetProductDetailsQuery(id);
   const product = data?.product;
@@ -46,6 +49,20 @@ const ProductDetailsPage = () => {
     }
   }, [isError, error]);
 
+  const setItemToCart = () => {
+    const cartItem = {
+      product: product?._id,
+      name: product?.name,
+      price: product?.price,
+      image: product?.images[0]?.url,
+      stock: product?.stock,
+      quantity,
+    };
+
+    dispatch(setCartItem(cartItem));
+    toast.success('Item added to Cart');
+  };
+
   if (isLoading) return <Loader />;
 
   return (
@@ -66,7 +83,7 @@ const ProductDetailsPage = () => {
           </div>
           <div className="row justify-content-start mt-5">
             {product?.images?.map((img) => (
-              <div className="col-2 ms-4 mt-2">
+              <div key={img?.url} className="col-2 ms-4 mt-2">
                 <a role="button">
                   <img
                     className={`d-block border rounded p-3 cursor-pointer ${
@@ -125,6 +142,7 @@ const ProductDetailsPage = () => {
             id="cart_btn"
             className="btn btn-primary d-inline ms-4"
             disabled={product?.stock <= 0}
+            onClick={setItemToCart}
           >
             Add to Cart
           </button>
