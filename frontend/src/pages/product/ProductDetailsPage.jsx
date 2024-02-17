@@ -6,12 +6,31 @@ import Loader from '../../components/layout/Loader';
 import StarRatings from 'react-star-ratings';
 
 const ProductDetailsPage = () => {
+  const [quantity, setQuantity] = useState(1);
   const [activeImg, setActiveImg] = useState('');
 
   const { id } = useParams();
 
   const { data, isLoading, error, isError } = useGetProductDetailsQuery(id);
   const product = data?.product;
+
+  const increseQty = () => {
+    const count = document.querySelector('.count');
+
+    if (count.valueAsNumber >= product?.stock) return;
+
+    const qty = count.valueAsNumber + 1;
+    setQuantity(qty);
+  };
+
+  const decreseQty = () => {
+    const count = document.querySelector('.count');
+
+    if (count.valueAsNumber <= 1) return;
+
+    const qty = count.valueAsNumber - 1;
+    setQuantity(qty);
+  };
 
   useEffect(() => {
     setActiveImg(
@@ -88,14 +107,18 @@ const ProductDetailsPage = () => {
 
           <p id="product_price">${product?.price}</p>
           <div className="stockCounter d-inline">
-            <span className="btn btn-danger minus">-</span>
+            <span className="btn btn-danger minus" onClick={decreseQty}>
+              -
+            </span>
             <input
               type="number"
               className="form-control count d-inline"
-              value="1"
+              value={quantity}
               readOnly
             />
-            <span className="btn btn-primary plus">+</span>
+            <span className="btn btn-primary plus" onClick={increseQty}>
+              +
+            </span>
           </div>
           <button
             type="button"
