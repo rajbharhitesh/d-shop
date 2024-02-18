@@ -14,6 +14,7 @@ import UpdatePasswordPage from './pages/user/UpdatePasswordPage';
 import UploadAvatarPage from './pages/user/UploadAvatarPage';
 import CartPage from './pages/cart/CartPage';
 import ShippingPage from './pages/cart/ShippingPage';
+import ConfirmOrderPage from './pages/cart/ConfirmOrderPage';
 
 const App = () => {
   return (
@@ -70,6 +71,15 @@ const App = () => {
               element={
                 <ProtectedRoute>
                   <ShippingPage />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/confirm_order"
+              element={
+                <ProtectedRoute>
+                  <ConfirmOrderPage />
                 </ProtectedRoute>
               }
             />
