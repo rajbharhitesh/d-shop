@@ -15,6 +15,7 @@ import UploadAvatarPage from './pages/user/UploadAvatarPage';
 import CartPage from './pages/cart/CartPage';
 import ShippingPage from './pages/cart/ShippingPage';
 import ConfirmOrderPage from './pages/cart/ConfirmOrderPage';
+import PaymentMethodPage from './pages/cart/PaymentMethodPage';
 
 const App = () => {
   return (
@@ -80,6 +81,15 @@ const App = () => {
               element={
                 <ProtectedRoute>
                   <ConfirmOrderPage />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/payment_method"
+              element={
+                <ProtectedRoute>
+                  <PaymentMethodPage />
                 </ProtectedRoute>
               }
             />
