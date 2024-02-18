@@ -12,7 +12,13 @@ export const orderApi = createApi({
         body,
       }),
     }),
+
+    myOrders: builder.query({
+      query: () => ({
+        url: '/me/orders',
+      }),
+    }),
   }),
 });
 
-export const { useCreateNewOrderMutation } = orderApi;
+export const { useCreateNewOrderMutation, useMyOrdersQuery } = orderApi;

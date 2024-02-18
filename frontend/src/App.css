@@ -237,15 +237,15 @@ footer {
 
 #checkout_btn,
 .review-btn {
-  background-color: #fa9c23;
-  border-color: #fa9c23;
+  background-color: #ff3f6c;
+  border-color: #ff3f6c;
   margin-top: 2rem;
   border-radius: 5rem;
 }
 
 #view_order_details {
-  background-color: #fa9c23;
-  border-color: #fa9c23;
+  background-color: #ff3f6c;
+  border-color: #ff3f6c;
 }
 
 #order_summary {
@@ -466,16 +466,16 @@ footer {
 
 /* Pagination */
 .page-item.active .page-link {
-  background-color: #fa9c23;
-  border-color: #fa9c23;
+  background-color: #ff3f6c;
+  border-color: #ff3f6c;
 }
 
 .page-link {
-  color: #fa9c23;
+  color: #ff3f6c;
 }
 
 .page-link:hover {
-  color: #fa9c23;
+  color: #ff3f6c;
 }
 
 /* Products List Admin */
@@ -544,8 +544,8 @@ footer {
 }
 
 #filter_form button {
-  background-color: #fa9c23;
-  border-color: #fa9c23;
+  background-color: #ff3f6c;
+  border-color: #ff3f6c;
 }
 
 .filter {
