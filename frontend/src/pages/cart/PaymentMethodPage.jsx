@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import CheckoutSteps from '../../components/layout/Checkoutsteps';
+import { toast } from 'sonner';
 import { caluclateOrderCost } from '../../helper/helper';
+import { useCreateNewOrderMutation } from '../../redux/api/orderApi';
+import CheckoutSteps from '../../components/layout/Checkoutsteps';
 
 const PaymentMethodPage = () => {
   const [method, setMethod] = useState('');
@@ -10,6 +12,18 @@ const PaymentMethodPage = () => {
   const navigate = useNavigate();
 
   const { shippingInfo, cartItems } = useSelector((state) => state.cart);
+
+  const [createNewOrder, { error, isSuccess }] = useCreateNewOrderMutation();
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error?.data?.message);
+    }
+
+    if (isSuccess) {
+      navigate('/');
+    }
+  }, [error, isSuccess]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -19,6 +33,20 @@ const PaymentMethodPage = () => {
 
     if (method === 'COD') {
       // Create COD Order
+      const orderData = {
+        shippingInfo,
+        orderItems: cartItems,
+        itemsPrice,
+        shippingAmount: shippingPrice,
+        taxAmount: taxPrice,
+        totalAmount: totalPrice,
+        paymentInfo: {
+          status: 'Not Paid',
+        },
+        paymentMethod: 'COD',
+      };
+
+      createNewOrder(orderData);
     }
 
     if (method === 'Card') {
@@ -43,7 +71,7 @@ const PaymentMethodPage = () => {
                 value="COD"
                 onChange={(e) => setMethod('COD')}
               />
-              <label className="form-check-label" for="codradio">
+              <label className="form-check-label" htmlFor="codradio">
                 Cash on Delivery
               </label>
             </div>
@@ -56,7 +84,7 @@ const PaymentMethodPage = () => {
                 value="Card"
                 onChange={(e) => setMethod('Card')}
               />
-              <label className="form-check-label" for="cardradio">
+              <label className="form-check-label" htmlFor="cardradio">
                 Card - VISA, MasterCard
               </label>
             </div>

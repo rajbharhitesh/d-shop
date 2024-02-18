@@ -143,7 +143,7 @@ const CartPage = () => {
                 <hr />
                 <button
                   id="checkout_btn"
-                  className="btn btn-primary w-100"
+                  className="btn btn-primary myntra w-100"
                   onClick={checkoutHandler}
                 >
                   Check out
