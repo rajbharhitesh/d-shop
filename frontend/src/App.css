@@ -383,7 +383,7 @@ footer {
 }
 
 .active-step {
-  background: #fa9c23;
+  background: black;
   color: #fff;
 }
 
@@ -391,7 +391,7 @@ footer {
   float: left;
   width: 0;
   border-top: 20px solid transparent;
-  border-left: 15px solid #fa9c23;
+  border-left: 15px solid #ff3f6c;
   border-bottom: 20px solid transparent;
   margin-left: -1px;
 }
@@ -399,9 +399,9 @@ footer {
 .triangle2-active {
   width: 0;
   float: left;
-  border-top: 20px solid #fa9c23;
+  border-top: 20px solid #ff3f6c;
   border-left: 15px solid #fff;
-  border-bottom: 20px solid #fa9c23;
+  border-bottom: 20px solid #ff3f6c;
   margin-right: -1px;
 }
 

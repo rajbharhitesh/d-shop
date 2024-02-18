@@ -13,6 +13,7 @@ import ProtectedRoute from './components/routes/ProtectedRoute';
 import UpdatePasswordPage from './pages/user/UpdatePasswordPage';
 import UploadAvatarPage from './pages/user/UploadAvatarPage';
 import CartPage from './pages/cart/CartPage';
+import ShippingPage from './pages/cart/ShippingPage';
 
 const App = () => {
   return (
@@ -60,6 +61,15 @@ const App = () => {
               element={
                 <ProtectedRoute>
                   <UploadAvatarPage />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/shipping"
+              element={
+                <ProtectedRoute>
+                  <ShippingPage />
                 </ProtectedRoute>
               }
             />
