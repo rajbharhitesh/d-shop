@@ -8,7 +8,6 @@ import ErrorHandler from '../utils/errorHandler.js';
  * @method  POST
  * @access  Private
  ------------------------------------------------*/
-
 const newOrder = asyncHandler(async (req, res, next) => {
   const {
     orderItems,
@@ -36,4 +35,16 @@ const newOrder = asyncHandler(async (req, res, next) => {
   res.status(200).json({ order });
 });
 
-export { newOrder };
+/**-----------------------------------------------
+ * @desc     Get current user orders
+ * @route   /api/v1/me/orders
+ * @method  GET
+ * @access  Private
+ ------------------------------------------------*/
+const myOrders = asyncHandler(async (req, res, next) => {
+  const orders = await Order.find({ user: req.user._id });
+
+  res.status(200).json({ orders });
+});
+
+export { newOrder, myOrders };
