@@ -1,18 +1,32 @@
 import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { MDBDataTable } from 'mdbreact';
 import { toast } from 'sonner';
 import { useMyOrdersQuery } from '../../redux/api/orderApi';
 import Loader from '../../components/layout/Loader';
+import { useDispatch } from 'react-redux';
+import { clearCart } from '../../redux/features/cartSlice';
 
 const OrderPage = () => {
   const { data, isLoading, error } = useMyOrdersQuery();
+
+  const [searchParams] = useSearchParams();
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const orderSuccess = searchParams.get('order_success');
 
   useEffect(() => {
     if (error) {
       toast.error(error?.data?.message);
     }
-  }, [error]);
+
+    if (orderSuccess) {
+      dispatch(clearCart());
+      navigate('/me/orders');
+    }
+  }, [error, orderSuccess]);
 
   const setOrders = () => {
     const orders = {
