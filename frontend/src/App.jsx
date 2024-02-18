@@ -12,6 +12,7 @@ import UpdateProfilePage from './pages/user/UpdateProfilePage';
 import ProtectedRoute from './components/routes/ProtectedRoute';
 import UpdatePasswordPage from './pages/user/UpdatePasswordPage';
 import UploadAvatarPage from './pages/user/UploadAvatarPage';
+import CartPage from './pages/cart/CartPage';
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
             <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
+            <Route path="/cart" element={<CartPage />} />
 
             <Route
               path="/me/profile"
