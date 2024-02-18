@@ -32,7 +32,7 @@ const newOrder = asyncHandler(async (req, res, next) => {
     user: req.user._id,
   });
 
-  res.status(200).json({ order });
+  res.status(201).json({ order });
 });
 
 /**-----------------------------------------------
@@ -47,4 +47,23 @@ const myOrders = asyncHandler(async (req, res, next) => {
   res.status(200).json({ orders });
 });
 
-export { newOrder, myOrders };
+/**-----------------------------------------------
+ * @desc     Get order detail
+ * @route   /api/v1/orders/:id
+ * @method  GET
+ * @access  Private
+ ------------------------------------------------*/
+const getOrderDetails = asyncHandler(async (req, res, next) => {
+  const order = await Order.findById(req.params.id).populate(
+    'user',
+    'name email'
+  );
+
+  if (!order) {
+    return next(new ErrorHandler('No Order found with this ID', 404));
+  }
+
+  res.status(200).json({ order });
+});
+
+export { newOrder, myOrders, getOrderDetails };
