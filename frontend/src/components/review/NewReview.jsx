@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import StarRatings from 'react-star-ratings';
 import { useSubmitReviewMutation } from '../../redux/api/productApi';
 import { toast } from 'sonner';
+import StarRatings from 'react-star-ratings';
 
 const NewReview = ({ productId }) => {
   const [rating, setRating] = useState(0);
@@ -43,7 +43,7 @@ const NewReview = ({ productId }) => {
           <div
             className="modal fade"
             id="ratingModal"
-            tabindex="-1"
+            tabIndex="-1"
             role="dialog"
             aria-labelledby="ratingModalLabel"
             aria-hidden="true"

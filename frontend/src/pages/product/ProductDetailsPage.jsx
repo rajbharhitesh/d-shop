@@ -7,6 +7,7 @@ import { setCartItem } from '../../redux/features/cartSlice';
 import Loader from '../../components/layout/Loader';
 import StarRatings from 'react-star-ratings';
 import NewReview from '../../components/review/NewReview';
+import ListReviews from '../../components/review/ListReviews';
 
 const ProductDetailsPage = () => {
   const [quantity, setQuantity] = useState(1);
@@ -180,6 +181,9 @@ const ProductDetailsPage = () => {
           )}
         </div>
       </div>
+      {product?.reviews?.length > 0 && (
+        <ListReviews reviews={product?.reviews} />
+      )}
     </>
   );
 };
