@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'sonner';
 import { useGetProductDetailsQuery } from '../../redux/api/productApi';
 import { setCartItem } from '../../redux/features/cartSlice';
 import Loader from '../../components/layout/Loader';
 import StarRatings from 'react-star-ratings';
+import NewReview from '../../components/review/NewReview';
 
 const ProductDetailsPage = () => {
   const [quantity, setQuantity] = useState(1);
@@ -16,6 +17,8 @@ const ProductDetailsPage = () => {
 
   const { data, isLoading, error, isError } = useGetProductDetailsQuery(id);
   const product = data?.product;
+
+  const { isAuthenticated } = useSelector((state) => state.auth);
 
   const increseQty = () => {
     const count = document.querySelector('.count');
@@ -168,9 +171,13 @@ const ProductDetailsPage = () => {
             Sold by: <strong>{product?.seller}</strong>
           </p>
 
-          <div className="alert alert-danger my-5" type="alert">
-            Login to post your review.
-          </div>
+          {isAuthenticated ? (
+            <NewReview productId={product?._id} />
+          ) : (
+            <div className="alert alert-danger my-5" type="alert">
+              Login to post your review.
+            </div>
+          )}
         </div>
       </div>
     </>
