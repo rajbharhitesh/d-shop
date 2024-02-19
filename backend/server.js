@@ -30,7 +30,7 @@ const app = express();
 app.use(
   express.json({
     limit: '10mb',
-    verify: (req, res, body) => {
+    verify: (req, res, buf) => {
       req.rawbody = buf.toString();
     },
   })
