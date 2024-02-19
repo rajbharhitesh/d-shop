@@ -34,13 +34,8 @@ const ProductCarousel = () => {
                 className="w-100"
               />
               <div className="carousel-caption">
-                <h5>Title Slide 0</h5>
-                <p>
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                  Consectetur rerum totam dolores porro eveniet provident eaque
-                  architecto? Ea aperiam sit, amet aliquam error excepturi velit
-                  aspernatur magnam officia inventore minima.
-                </p>
+                <h5>{product?.name}</h5>
+                <p>{product?.description}</p>
               </div>
             </div>
           </div>
