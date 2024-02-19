@@ -12,8 +12,8 @@ const router = express.Router();
 // api/v1/products
 router.route('/products').get(getProducts);
 
-// api/ v1/products/top;
-router.route('/top').get(getTopProducts);
+// api/v1/products/top;
+router.route('/products/top').get(getTopProducts);
 
 // api/v1/reviews
 router.route('/reviews').put(isAuthenticatedUser, createProductReview);
