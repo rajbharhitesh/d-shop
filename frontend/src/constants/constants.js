@@ -1,0 +1,15 @@
+export const PRODUCT_CATEGORIES = [
+  'Cameras',
+  'Electronics',
+  'Laptops',
+  'Accessories',
+  'Headphones',
+  'Food',
+  'Books',
+  'Sports',
+  'Shoes',
+  'Beauty',
+  'Outdoor',
+  'Clothes',
+  'Home',
+];
