@@ -1,5 +1,6 @@
 import asyncHandler from '../middlewares/asyncHandler.js';
 import Product from '../models/productModel.js';
+import APIFilter from '../utils/apiFilter.js';
 import ErrorHandler from '../utils/errorHandler.js';
 
 /**-----------------------------------------------
@@ -9,9 +10,20 @@ import ErrorHandler from '../utils/errorHandler.js';
  * @access  Public
  ------------------------------------------------*/
 const getProducts = asyncHandler(async (req, res) => {
-  const products = await Product.find();
+  const resPerPage = 4;
+  const apiFilters = new APIFilter(Product, req.query).search().filters();
 
-  res.status(200).json({ products });
+  let products = await apiFilters.query;
+  let filteredProductsCount = products.length;
+
+  apiFilters.pagination(resPerPage);
+  products = await apiFilters.query.clone();
+
+  res.status(200).json({
+    resPerPage,
+    filteredProductsCount,
+    products,
+  });
 });
 
 /**-----------------------------------------------
