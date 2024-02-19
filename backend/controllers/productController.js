@@ -102,4 +102,22 @@ const getTopProducts = asyncHandler(async (req, res) => {
   res.json(products);
 });
 
-export { getProducts, getProductDetails, createProductReview, getTopProducts };
+/**-----------------------------------------------
+ * @desc     Get Products --- ADMIN
+ * @route   /api/vi/admin/products
+ * @method  GET
+ * @access  Private
+ ------------------------------------------------*/
+const getAdminProducts = asyncHandler(async (req, res) => {
+  const products = await Product.find();
+
+  res.status(200).json({ products });
+});
+
+export {
+  getProducts,
+  getProductDetails,
+  createProductReview,
+  getTopProducts,
+  getAdminProducts,
+};

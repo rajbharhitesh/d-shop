@@ -1,16 +1,25 @@
 import express from 'express';
 import {
   createProductReview,
+  getAdminProducts,
   getProductDetails,
   getProducts,
   getTopProducts,
 } from '../controllers/productController.js';
-import { isAuthenticatedUser } from '../middlewares/authMiddleware.js';
+import {
+  authorizeRoles,
+  isAuthenticatedUser,
+} from '../middlewares/authMiddleware.js';
 
 const router = express.Router();
 
 // api/v1/products
 router.route('/products').get(getProducts);
+
+// api/v1/admin/products
+router
+  .route('/admin/products')
+  .get(isAuthenticatedUser, authorizeRoles('admin'), getAdminProducts);
 
 // api/v1/products/top;
 router.route('/products/top').get(getTopProducts);
