@@ -10,7 +10,7 @@ import ErrorHandler from '../utils/errorHandler.js';
  * @access  Public
  ------------------------------------------------*/
 const getProducts = asyncHandler(async (req, res) => {
-  const resPerPage = 4;
+  const resPerPage = 8;
   const apiFilters = new APIFilter(Product, req.query).search().filters();
 
   let products = await apiFilters.query;
