@@ -27,6 +27,12 @@ export const productApi = createApi({
       providesTags: ['Product'],
     }),
 
+    getTopProducts: builder.query({
+      query: () => ({
+        url: '/products/top',
+      }),
+    }),
+
     submitReview: builder.mutation({
       query: (body) => ({
         url: `/reviews`,
@@ -41,5 +47,6 @@ export const productApi = createApi({
 export const {
   useGetProductsQuery,
   useGetProductDetailsQuery,
+  useGetTopProductsQuery,
   useSubmitReviewMutation,
 } = productApi;
