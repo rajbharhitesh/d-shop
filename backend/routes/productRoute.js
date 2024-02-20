@@ -7,6 +7,7 @@ import {
   getTopProducts,
   newProduct,
   updateProduct,
+  uploadProductImage,
 } from '../controllers/productController.js';
 import {
   authorizeRoles,
@@ -37,5 +38,10 @@ router.route('/products/:id').get(getProductDetails);
 router
   .route('/admin/products/:id')
   .put(isAuthenticatedUser, authorizeRoles('admin'), updateProduct);
+
+// api/v1/admin/products/:id/upload_images
+router
+  .route('/admin/products/:id/upload_images')
+  .put(isAuthenticatedUser, authorizeRoles('admin'), uploadProductImage);
 
 export default router;

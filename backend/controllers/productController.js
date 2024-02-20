@@ -1,6 +1,7 @@
 import asyncHandler from '../middlewares/asyncHandler.js';
 import Product from '../models/productModel.js';
 import APIFilter from '../utils/apiFilter.js';
+import { upload_file } from '../utils/cloudinary.js';
 import ErrorHandler from '../utils/errorHandler.js';
 
 /**-----------------------------------------------
@@ -134,7 +135,7 @@ const newProduct = asyncHandler(async (req, res) => {
  * @method   PUT
  * @access  Private
  ------------------------------------------------*/
-const updateProduct = asyncHandler(async (req, res) => {
+const updateProduct = asyncHandler(async (req, res, next) => {
   let product = await Product.findById(req?.params?.id);
 
   if (!product) {
@@ -145,7 +146,30 @@ const updateProduct = asyncHandler(async (req, res) => {
     new: true,
   });
 
-  res.status(201).json({ product });
+  res.status(200).json({ product });
+});
+
+/**-----------------------------------------------
+ * @desc     Upload Product Image  --- ADMIN
+ * @route   /api/v1/admin/products/:id/upload_image
+ * @method   PUT
+ * @access  Private
+ ------------------------------------------------*/
+const uploadProductImage = asyncHandler(async (req, res, next) => {
+  let product = await Product.findById(req?.params?.id);
+
+  if (!product) {
+    return next(new ErrorHandler('Product not found', 404));
+  }
+
+  const uploader = async (image) => upload_file(image, 'shopit/products');
+
+  const urls = await Promise.all((req?.body?.images).map(uploader));
+
+  product?.images?.push(...urls);
+  await product?.save();
+
+  res.status(200).json({ product });
 });
 
 export {
@@ -156,4 +180,5 @@ export {
   getAdminProducts,
   newProduct,
   updateProduct,
+  uploadProductImage,
 };
