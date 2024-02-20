@@ -104,7 +104,7 @@ const getTopProducts = asyncHandler(async (req, res) => {
 
 /**-----------------------------------------------
  * @desc     Get Products --- ADMIN
- * @route   /api/vi/admin/products
+ * @route   /api/v1/admin/products
  * @method  GET
  * @access  Private
  ------------------------------------------------*/
@@ -116,7 +116,7 @@ const getAdminProducts = asyncHandler(async (req, res) => {
 
 /**-----------------------------------------------
  * @desc     Create new Product  --- ADMIN
- * @route   /api/vi/admin/products
+ * @route   /api/v1/admin/products
  * @method   POST
  * @access  Private
  ------------------------------------------------*/
@@ -128,6 +128,26 @@ const newProduct = asyncHandler(async (req, res) => {
   res.status(201).json({ product });
 });
 
+/**-----------------------------------------------
+ * @desc     Update Product  --- ADMIN
+ * @route   /api/v1/admin/products/:id
+ * @method   PUT
+ * @access  Private
+ ------------------------------------------------*/
+const updateProduct = asyncHandler(async (req, res) => {
+  let product = await Product.findById(req?.params?.id);
+
+  if (!product) {
+    return next(new ErrorHandler('Product not found', 404));
+  }
+
+  product = await Product.findByIdAndUpdate(req?.params?.id, req.body, {
+    new: true,
+  });
+
+  res.status(201).json({ product });
+});
+
 export {
   getProducts,
   getProductDetails,
@@ -135,4 +155,5 @@ export {
   getTopProducts,
   getAdminProducts,
   newProduct,
+  updateProduct,
 };

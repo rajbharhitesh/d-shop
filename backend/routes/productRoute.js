@@ -6,6 +6,7 @@ import {
   getProducts,
   getTopProducts,
   newProduct,
+  updateProduct,
 } from '../controllers/productController.js';
 import {
   authorizeRoles,
@@ -31,5 +32,10 @@ router.route('/reviews').put(isAuthenticatedUser, createProductReview);
 
 // api/v1/products/:id
 router.route('/products/:id').get(getProductDetails);
+
+// api/v1/admin/products/:id
+router
+  .route('/admin/products/:id')
+  .put(isAuthenticatedUser, authorizeRoles('admin'), updateProduct);
 
 export default router;
