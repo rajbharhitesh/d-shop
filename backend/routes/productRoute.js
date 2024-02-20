@@ -1,6 +1,7 @@
 import express from 'express';
 import {
   createProductReview,
+  deleteProductImage,
   getAdminProducts,
   getProductDetails,
   getProducts,
@@ -43,5 +44,10 @@ router
 router
   .route('/admin/products/:id/upload_images')
   .put(isAuthenticatedUser, authorizeRoles('admin'), uploadProductImage);
+
+// api/v1/admin/products/:id/delete_images
+router
+  .route('/admin/products/:id/delete_images')
+  .put(isAuthenticatedUser, authorizeRoles('admin'), deleteProductImage);
 
 export default router;
