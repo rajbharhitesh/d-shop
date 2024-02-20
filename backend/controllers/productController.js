@@ -198,6 +198,29 @@ const deleteProductImage = asyncHandler(async (req, res, next) => {
   res.status(200).json({ product });
 });
 
+/**-----------------------------------------------
+ * @desc     Delete Product -- ADMIN
+ * @route   /api/v1/admin/products/:id
+ * @method   DELETE
+ * @access  Private
+ ------------------------------------------------*/
+const deleteProduct = asyncHandler(async (req, res, next) => {
+  const product = await Product.findById(req?.params?.id);
+
+  if (!product) {
+    return next(new ErrorHandler('Product not found', 404));
+  }
+
+  // Deleting image associated with product
+  for (let i = 0; i < product?.images?.length; i++) {
+    await delete_file(product?.images[i].public_id);
+  }
+
+  await product.deleteOne();
+
+  res.status(200).json({ message: 'Product Deleted' });
+});
+
 export {
   getProducts,
   getProductDetails,
@@ -208,4 +231,5 @@ export {
   updateProduct,
   uploadProductImage,
   deleteProductImage,
+  deleteProduct,
 };
