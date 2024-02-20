@@ -114,10 +114,25 @@ const getAdminProducts = asyncHandler(async (req, res) => {
   res.status(200).json({ products });
 });
 
+/**-----------------------------------------------
+ * @desc     Create new Product  --- ADMIN
+ * @route   /api/vi/admin/products
+ * @method   POST
+ * @access  Private
+ ------------------------------------------------*/
+const newProduct = asyncHandler(async (req, res) => {
+  req.body.user = req.user._id;
+
+  const product = await Product.create(req.body);
+
+  res.status(201).json({ product });
+});
+
 export {
   getProducts,
   getProductDetails,
   createProductReview,
   getTopProducts,
   getAdminProducts,
+  newProduct,
 };

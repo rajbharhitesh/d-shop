@@ -5,6 +5,7 @@ import {
   getProductDetails,
   getProducts,
   getTopProducts,
+  newProduct,
 } from '../controllers/productController.js';
 import {
   authorizeRoles,
@@ -19,7 +20,8 @@ router.route('/products').get(getProducts);
 // api/v1/admin/products
 router
   .route('/admin/products')
-  .get(isAuthenticatedUser, authorizeRoles('admin'), getAdminProducts);
+  .get(isAuthenticatedUser, authorizeRoles('admin'), getAdminProducts)
+  .post(isAuthenticatedUser, authorizeRoles('admin'), newProduct);
 
 // api/v1/products/top;
 router.route('/products/top').get(getTopProducts);
