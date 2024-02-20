@@ -3,6 +3,7 @@ import ProtectedRoute from '../../components/routes/ProtectedRoute';
 import DashboardPage from '../../pages/admin/DashboardPage';
 import ListProductsPage from '../../pages/admin/ListProductsPage';
 import NewProductPage from '../../pages/admin/NewProductPage';
+import UpdateProductPage from '../../pages/admin/UpdateProductPage';
 
 const adminRoutes = () => {
   return (
@@ -30,6 +31,15 @@ const adminRoutes = () => {
         element={
           <ProtectedRoute admin={true}>
             <NewProductPage />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/admin/products/:id"
+        element={
+          <ProtectedRoute admin={true}>
+            <UpdateProductPage />
           </ProtectedRoute>
         }
       />
