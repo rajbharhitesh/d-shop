@@ -67,10 +67,6 @@ const LoginPage = () => {
             />
           </div>
 
-          <Link to="/password/forgot" className="float-end mb-4">
-            Forgot Password?
-          </Link>
-
           <button
             id="login_button"
             type="submit"
