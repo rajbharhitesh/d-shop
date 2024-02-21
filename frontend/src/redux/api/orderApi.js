@@ -47,7 +47,7 @@ export const orderApi = createApi({
         url: `/admin/orders/${id}`,
         method: 'DELETE',
       }),
-      providesTags: ['AdminOrders'],
+      invalidatesTags: ['AdminOrders'],
     }),
   }),
 });
