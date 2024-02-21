@@ -2,18 +2,44 @@ import { useEffect } from 'react';
 import { MDBDataTable } from 'mdbreact';
 import { Link } from 'react-router-dom';
 import { toast } from 'sonner';
-import { useAdminUsersQuery } from '../../redux/api/userApi';
+import {
+  useAdminDeleteUserMutation,
+  useAdminUsersQuery,
+} from '../../redux/api/userApi';
 import AdminLayout from '../../components/layout/AdminLayout';
 import Loader from '../../components/layout/Loader';
 
 const ListUsersPage = () => {
   const { data, isLoading, error } = useAdminUsersQuery();
 
+  const [
+    deleteUser,
+    { error: deleteError, isLoading: isDeleteLoading, isSuccess },
+  ] = useAdminDeleteUserMutation();
+
   useEffect(() => {
     if (error) {
       toast.error(error?.data?.message);
     }
   }, [error]);
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error?.data?.message);
+    }
+
+    if (deleteError) {
+      toast.error(deleteError?.data?.message);
+    }
+
+    if (isSuccess) {
+      toast.success('User Deleted');
+    }
+  }, [error, deleteError, isSuccess]);
+
+  const deleteUserHandler = (id) => {
+    deleteUser(id);
+  };
 
   const setUsers = () => {
     const users = {
@@ -62,7 +88,11 @@ const ListUsersPage = () => {
               <i className="fa fa-pencil"></i>
             </Link>
 
-            <button className="btn btn-outline-danger ms-2">
+            <button
+              className="btn btn-outline-danger ms-2"
+              onClick={() => deleteUserHandler(user?._id)}
+              disabled={isDeleteLoading}
+            >
               <i className="fa fa-trash"></i>
             </button>
           </>

@@ -127,6 +127,31 @@ const updateUser = asyncHandler(async (req, res, next) => {
   res.status(200).json({ user });
 });
 
+/**-----------------------------------------------
+ * @desc     Delete user
+ * @route   /api/v1/users/:id
+ * @method  DELETE
+ * @access  Private
+ ------------------------------------------------*/
+const deleteUser = asyncHandler(async (req, res, next) => {
+  const user = await User.findById(req.params.id);
+
+  if (!user) {
+    return next(
+      new ErrorHandler(`User not found with id: ${req.params.id}`, 404)
+    );
+  }
+
+  // Remove user avatar from cloudinary
+  if (user?.avatar?.public_id) {
+    await delete_file(user?.avatar?.public_id);
+  }
+
+  await user.deleteOne();
+
+  res.status(200).json({ success: true });
+});
+
 export {
   getUserProfile,
   updateProfile,
@@ -135,4 +160,5 @@ export {
   allUsers,
   getUserDetails,
   updateUser,
+  deleteUser,
 };

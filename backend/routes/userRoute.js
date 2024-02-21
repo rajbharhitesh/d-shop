@@ -5,6 +5,7 @@ import {
 } from '../middlewares/authMiddleware.js';
 import {
   allUsers,
+  deleteUser,
   getUserDetails,
   getUserProfile,
   updatePassword,
@@ -34,6 +35,7 @@ router.route('/password/update').put(isAuthenticatedUser, updatePassword);
 router
   .route('/:id')
   .get(isAuthenticatedUser, authorizeRoles('admin'), getUserDetails)
-  .put(isAuthenticatedUser, authorizeRoles('admin'), updateUser);
+  .put(isAuthenticatedUser, authorizeRoles('admin'), updateUser)
+  .delete(isAuthenticatedUser, authorizeRoles('admin'), deleteUser);
 
 export default router;
