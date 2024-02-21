@@ -107,6 +107,26 @@ const getUserDetails = asyncHandler(async (req, res, next) => {
   res.status(200).json({ user });
 });
 
+/**-----------------------------------------------
+ * @desc     Update user
+ * @route   /api/v1/users/:id
+ * @method  PUT
+ * @access  Private
+ ------------------------------------------------*/
+const updateUser = asyncHandler(async (req, res, next) => {
+  const newUserData = {
+    name: req.body.name,
+    email: req.body.email,
+    role: req.body.role,
+  };
+
+  const user = await User.findByIdAndUpdate(req.params.id, newUserData, {
+    new: true,
+  });
+
+  res.status(200).json({ user });
+});
+
 export {
   getUserProfile,
   updateProfile,
@@ -114,4 +134,5 @@ export {
   uploadAvatar,
   allUsers,
   getUserDetails,
+  updateUser,
 };

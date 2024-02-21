@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useAdminUserQuery } from '../../redux/api/userApi';
+import {
+  useAdminUpdateUserMutation,
+  useAdminUserQuery,
+} from '../../redux/api/userApi';
 import AdminLayout from '../../components/layout/AdminLayout';
+import { toast } from 'sonner';
 
 const UpdateUserPage = () => {
   const [name, setName] = useState('');
@@ -13,6 +17,8 @@ const UpdateUserPage = () => {
 
   const { data } = useAdminUserQuery(id);
 
+  const [updateUser, { error, isSuccess }] = useAdminUpdateUserMutation();
+
   useEffect(() => {
     if (data?.user) {
       setName(data?.user?.name);
@@ -21,11 +27,30 @@ const UpdateUserPage = () => {
     }
   }, [data]);
 
+  useEffect(() => {
+    if (error) {
+      toast.error(error?.data?.message);
+    }
+
+    if (isSuccess) {
+      toast.success('User Updated');
+      navigate('/admin/users');
+    }
+  }, [error, isSuccess]);
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+
+    const userData = { name, email, role };
+
+    updateUser({ id, body: userData });
+  };
+
   return (
     <AdminLayout>
       <div className="row wrapper">
         <div className="col-10 col-lg-8">
-          <form className="shadow-lg">
+          <form className="shadow-lg" onSubmit={submitHandler}>
             <h2 className="mb-4 text-center">Update User</h2>
 
             <div className="mb-3">

@@ -9,6 +9,7 @@ import {
   getUserProfile,
   updatePassword,
   updateProfile,
+  updateUser,
   uploadAvatar,
 } from '../controllers/userController.js';
 
@@ -32,6 +33,7 @@ router.route('/password/update').put(isAuthenticatedUser, updatePassword);
 // api/v1/users/:id
 router
   .route('/:id')
-  .get(isAuthenticatedUser, authorizeRoles('admin'), getUserDetails);
+  .get(isAuthenticatedUser, authorizeRoles('admin'), getUserDetails)
+  .put(isAuthenticatedUser, authorizeRoles('admin'), updateUser);
 
 export default router;
