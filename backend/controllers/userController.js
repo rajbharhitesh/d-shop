@@ -89,10 +89,29 @@ const allUsers = asyncHandler(async (req, res, next) => {
   res.status(200).json({ users });
 });
 
+/**-----------------------------------------------
+ * @desc     Get user details
+ * @route   /api/v1/users/:id
+ * @method  GET
+ * @access  Private
+ ------------------------------------------------*/
+const getUserDetails = asyncHandler(async (req, res, next) => {
+  const user = await User.findById(req.params.id);
+
+  if (!user) {
+    return next(
+      new ErrorHandler(`User not found with id: ${req.params.id}`, 404)
+    );
+  }
+
+  res.status(200).json({ user });
+});
+
 export {
   getUserProfile,
   updateProfile,
   updatePassword,
   uploadAvatar,
   allUsers,
+  getUserDetails,
 };

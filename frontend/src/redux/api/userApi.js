@@ -57,12 +57,19 @@ export const userApi = createApi({
         url: '/',
       }),
     }),
+
+    adminUser: builder.query({
+      query: (id) => ({
+        url: `/${id}`,
+      }),
+    }),
   }),
 });
 
 export const {
   useGetMeQuery,
   useAdminUsersQuery,
+  useAdminUserQuery,
   useUpdateProfileMutation,
   useUpdatePasswordMutation,
   useUploadAvatarMutation,

@@ -8,6 +8,7 @@ import UploadProductImagePage from '../../pages/admin/UploadProductImagePage';
 import ListOrdersPage from '../../pages/admin/ListOrdersPage';
 import UpdateOrderPage from '../../pages/admin/UpdateOrderPage';
 import ListUsersPage from '../../pages/admin/ListUsersPage';
+import UpdateUserPage from '../../pages/admin/UpdateUserPage';
 
 const adminRoutes = () => {
   return (
@@ -71,6 +72,15 @@ const adminRoutes = () => {
         element={
           <ProtectedRoute admin={true}>
             <UpdateOrderPage />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/admin/users/:id"
+        element={
+          <ProtectedRoute admin={true}>
+            <UpdateUserPage />
           </ProtectedRoute>
         }
       />

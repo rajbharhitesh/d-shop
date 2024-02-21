@@ -5,6 +5,7 @@ import {
 } from '../middlewares/authMiddleware.js';
 import {
   allUsers,
+  getUserDetails,
   getUserProfile,
   updatePassword,
   updateProfile,
@@ -27,5 +28,10 @@ router.route('/me/upload_avatar').put(isAuthenticatedUser, uploadAvatar);
 
 // api/v1/users/password/update
 router.route('/password/update').put(isAuthenticatedUser, updatePassword);
+
+// api/v1/users/:id
+router
+  .route('/:id')
+  .get(isAuthenticatedUser, authorizeRoles('admin'), getUserDetails);
 
 export default router;
