@@ -1,3 +1,4 @@
+import path from 'path';
 import express from 'express';
 import colors from 'colors';
 import dotenv from 'dotenv';
@@ -43,6 +44,20 @@ app.use('/api/v1', authRoute);
 app.use('/api/v1', orderRoute);
 app.use('/api/v1', paymentRoute);
 app.use('/api/v1/users', userRoute);
+
+const __dirname = path.resolve();
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '/frontend/dist')));
+
+  app.get('*', (req, res) =>
+    res.sendFile(path.resolve(__dirname, 'frontend', 'dist', 'index.html'))
+  );
+} else {
+  app.get('/', (req, res) => {
+    res.send('API is running....');
+  });
+}
 
 // Using error middleware
 app.use(errorMiddleware);
