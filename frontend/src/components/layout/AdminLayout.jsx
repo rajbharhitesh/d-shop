@@ -22,11 +22,6 @@ const AdminLayout = ({ children }) => {
       url: '/admin/users',
       icon: 'fas fa-user',
     },
-    {
-      name: 'Reviews',
-      url: '/admin/reviews',
-      icon: 'fas fa-star',
-    },
   ];
 
   return (
