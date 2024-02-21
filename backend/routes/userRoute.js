@@ -1,6 +1,10 @@
 import express from 'express';
-import { isAuthenticatedUser } from '../middlewares/authMiddleware.js';
 import {
+  authorizeRoles,
+  isAuthenticatedUser,
+} from '../middlewares/authMiddleware.js';
+import {
+  allUsers,
   getUserProfile,
   updatePassword,
   updateProfile,
@@ -11,6 +15,9 @@ const router = express.Router();
 
 // api/v1/users/me
 router.route('/me').get(isAuthenticatedUser, getUserProfile);
+
+// api/v1/users
+router.route('/').get(isAuthenticatedUser, authorizeRoles('admin'), allUsers);
 
 // api/v1/users/me/update
 router.route('/me/update').put(isAuthenticatedUser, updateProfile);

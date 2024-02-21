@@ -77,4 +77,22 @@ const uploadAvatar = asyncHandler(async (req, res, next) => {
   res.status(200).json({ user });
 });
 
-export { getUserProfile, updateProfile, updatePassword, uploadAvatar };
+/**-----------------------------------------------
+ * @desc     Get all users
+ * @route   /api/v1/users
+ * @method  GET
+ * @access  Private
+ ------------------------------------------------*/
+const allUsers = asyncHandler(async (req, res, next) => {
+  const users = await User.find();
+
+  res.status(200).json({ users });
+});
+
+export {
+  getUserProfile,
+  updateProfile,
+  updatePassword,
+  uploadAvatar,
+  allUsers,
+};
