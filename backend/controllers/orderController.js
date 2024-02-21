@@ -68,7 +68,7 @@ const getOrderDetails = asyncHandler(async (req, res, next) => {
 
 /**-----------------------------------------------
  * @desc     Get all orders  --- ADMIN
- * @route   /api/v1/admin/orders/
+ * @route   /api/v1/admin/orders
  * @method  GET
  * @access  Private
  ------------------------------------------------*/

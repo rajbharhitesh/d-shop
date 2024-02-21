@@ -32,6 +32,12 @@ export const orderApi = createApi({
         url: `/orders/${id}`,
       }),
     }),
+
+    adminOrders: builder.query({
+      query: () => ({
+        url: `/admin/orders`,
+      }),
+    }),
   }),
 });
 
@@ -40,4 +46,5 @@ export const {
   useStripeCheckoutSessionMutation,
   useMyOrdersQuery,
   useOrderDetailsQuery,
+  useAdminOrdersQuery,
 } = orderApi;
