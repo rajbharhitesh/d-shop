@@ -5,6 +5,7 @@ import {
 } from '../middlewares/authMiddleware.js';
 import {
   allOrders,
+  deleteOrder,
   getOrderDetails,
   myOrders,
   newOrder,
@@ -22,6 +23,11 @@ router.route('/me/orders').get(isAuthenticatedUser, myOrders);
 router
   .route('/admin/orders')
   .get(isAuthenticatedUser, authorizeRoles('admin'), allOrders);
+
+// api/v1/admin/orders/:id
+router
+  .route('/admin/orders/:id')
+  .delete(isAuthenticatedUser, authorizeRoles('admin'), deleteOrder);
 
 // api/v1/orders/:id
 router.route('/orders/:id').get(isAuthenticatedUser, getOrderDetails);

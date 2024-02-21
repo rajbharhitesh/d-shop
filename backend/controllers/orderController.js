@@ -78,4 +78,22 @@ const allOrders = asyncHandler(async (req, res, next) => {
   res.status(200).json({ orders });
 });
 
-export { newOrder, myOrders, getOrderDetails, allOrders };
+/**-----------------------------------------------
+ * @desc     Delete order  --- ADMIN
+ * @route   /api/v1/admin/orders/:id
+ * @method   DELETE
+ * @access  Private
+ ------------------------------------------------*/
+const deleteOrder = asyncHandler(async (req, res, next) => {
+  const order = await Order.findById(req.params.id);
+
+  if (!order) {
+    return next(new ErrorHandler('No Order found with this ID', 404));
+  }
+
+  await order.deleteOne();
+
+  res.status(200).json({ success: true });
+});
+
+export { newOrder, myOrders, getOrderDetails, allOrders, deleteOrder };
