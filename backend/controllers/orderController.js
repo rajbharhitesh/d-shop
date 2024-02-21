@@ -1,5 +1,6 @@
 import asyncHandler from '../middlewares/asyncHandler.js';
 import Order from '../models/orderModel.js';
+import Product from '../models/productModel.js';
 import ErrorHandler from '../utils/errorHandler.js';
 
 /**-----------------------------------------------
@@ -96,4 +97,55 @@ const deleteOrder = asyncHandler(async (req, res, next) => {
   res.status(200).json({ success: true });
 });
 
-export { newOrder, myOrders, getOrderDetails, allOrders, deleteOrder };
+/**-----------------------------------------------
+ * @desc     Update order  --- ADMIN
+ * @route   /api/v1/admin/orders/:id
+ * @method   PUT
+ * @access  Private
+ ------------------------------------------------*/
+const updateOrder = asyncHandler(async (req, res, next) => {
+  const order = await Order.findById(req.params.id);
+
+  if (!order) {
+    return next(new ErrorHandler('No Order found with this ID', 404));
+  }
+
+  if (order?.orderStatus === 'Delivered') {
+    return next(new ErrorHandler('You have already delivered this order', 400));
+  }
+
+  let productNotFound = false;
+
+  // Update products stock
+  for (const item of order.orderItems) {
+    const product = await Product.findById(item?.product?.toString());
+    if (!product) {
+      productNotFound = true;
+      break;
+    }
+    product.stock = product.stock - item.quantity;
+    await product.save({ validateBeforeSave: false });
+  }
+
+  if (productNotFound) {
+    return next(
+      new ErrorHandler('No Product found with one or more IDs.', 404)
+    );
+  }
+
+  order.orderStatus = req.body.status;
+  order.deliveredAt = Date.now();
+
+  await order.save();
+
+  res.status(200).json({ success: true });
+});
+
+export {
+  newOrder,
+  myOrders,
+  getOrderDetails,
+  allOrders,
+  deleteOrder,
+  updateOrder,
+};

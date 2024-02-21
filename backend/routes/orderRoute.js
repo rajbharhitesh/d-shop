@@ -9,6 +9,7 @@ import {
   getOrderDetails,
   myOrders,
   newOrder,
+  updateOrder,
 } from '../controllers/orderController.js';
 
 const router = express.Router();
@@ -27,6 +28,7 @@ router
 // api/v1/admin/orders/:id
 router
   .route('/admin/orders/:id')
+  .put(isAuthenticatedUser, authorizeRoles('admin'), updateOrder)
   .delete(isAuthenticatedUser, authorizeRoles('admin'), deleteOrder);
 
 // api/v1/orders/:id
